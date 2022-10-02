@@ -60,6 +60,8 @@ draft             : no
 documentclass     : "apa6"
 classoption       : "man"
 output            : 
+  bookdown::word_document2:
+    default
   bookdown::html_document2:
     toc: true
     toc_float: 
@@ -68,8 +70,6 @@ output            :
     number_sections: true
     self_contained: false
     code_folding: show
-  bookdown::word_document2:
-    default
   papaja::apa6_pdf:
     numbersections: true
     toc: true
@@ -1006,7 +1006,7 @@ plot(pairs, byrow = FALSE, nrow = 2)
 
 ## Open Resources
 
-In conclusion, we hope that this paper has convinced you that it is both possible and desirable to use scripting to prepare stimuli for face research. You can access more detailed tutorials for webmorph.org at https://debruine.github.io/webmorph/ and for webmorphR at https://debruine.github.io/webmorphR/. All image sets used in this tutorial are available on a CC-BY license at [figshare](https://figshare.com/search?q=webmorph%20psychomorph) and all software is available open source. The code to reproduce this paper can be found at https://github.com/debruine/webmorphR/tree/master/paper. 
+In conclusion, we hope that this paper has convinced you that it is both possible and desirable to use scripting to prepare stimuli for face research. You can access more detailed tutorials for webmorph.org at https://debruine.github.io/webmorph/ and for webmorphR at https://debruine.github.io/webmorphR/. All image sets used in this tutorial are available on a CC-BY license at [figshare](https://figshare.com/search?q=webmorph%20psychomorph) and all software is available open source. The code to reproduce this paper can be found at https://github.com/debruine/reprostim. 
 
 
 \newpage

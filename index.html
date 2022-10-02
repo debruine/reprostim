@@ -295,35 +295,26 @@ div.tocify {
 
 
 <h1 class="title toc-ignore">Reproducible Methods for Face Research</h1>
-<h4 class="author">Lisa DeBruine</h4>
-<address class="author_afil">
-1<br><a class="author_email" href="mailto:#"><a href="mailto:lisa.debruine@glasgow.ac.uk" class="email">lisa.debruine@glasgow.ac.uk</a></a>
-</address>
-<h4 class="author">Iris Holzleitner</h4>
-<address class="author_afil">
-1,2<br><h4 class="author">Bernard Tiddeman</h4>
-<address class="author_afil">
-3<br><h4 class="author">Benedict C. Jones</h4>
-<address class="author_afil">
-4<br><div class="abstract">
+<h4 class="author">Lisa DeBruine, Iris Holzleitner, Bernard Tiddeman, Benedict C. Jones</h4>
+<div class="abstract">
 <p class="abstract">Abstract</p>
-<p>Face stimuli are commonly created in ways that are not explained well enough for others to reproduce them. In this paper, we document the irreproducibility of most face stimuli, explain the benefits of reproducible stimuli, and introduce the open-source R package webmorphR that facilitates scriptable fae image processing. We explain the technical processes of morphing and transforming through a case study of creating face stimuli from an open-access image set. Finally, we discuss some ethical and methodological issues around the use of face images in research that may be ameliorated through the use of reproducible stimuli.</p>
+<p>Face stimuli are commonly created in ways that are not explained well enough for others to reproduce them. In this paper, we document the irreproducibility of most face stimuli, explain the benefits of reproducible stimuli, and introduce the open-source R package webmorphR that facilitates scriptable face image processing. We explain the technical processes of morphing and transforming through a case study of creating face stimuli from an open-access image set. Finally, we discuss some ethical and methodological issues around the use of face images in research that may be ameliorated through the use of reproducible stimuli.</p>
 </div>
 
 </div>
 
 
 <style>
-  blockquote { 
-    font-size: 13px; 
-    border: 1px solid grey; 
+  blockquote {
+    font-size: 13px;
+    border: 1px solid grey;
     background-color: #EEE;
     border-radius: 1em;
   }
-  
+
   address { display: none; }
 </style>
-<p>Face stimuli are commonly created in ways that are not explained well enough for others to reproduce them. In this paper, we document the irreproducibility of most face stimuli, explain the benefits of reproducible stimuli, and introduce the open-source R package webmorphR that facilitates scriptable fae image processing. We explain the technical processes of morphing and transforming through a case study of creating face stimuli from an open-access image set. Finally, we discuss some ethical and methodological issues around the use of face images in research that may be ameliorated through the use of reproducible stimuli.</p>
+
 <div id="introduction" class="section level1">
 <h1>Introduction</h1>
 <p>Face stimuli are commonly used in research on visual and social perception. Faces are thought to play a core role in social interaction, with a wealth of research on brain areas for face processing <span class="citation">(Duchaine &amp; Yovel, 2015)</span>, emotional and social information communicated by faces <span class="citation">(Jack &amp; Schyns, 2017)</span>, and the role of facial appearance in shaping stereotypes <span class="citation">(Olivola et al., 2014; Todorov et al., 2008a)</span>, to give just a few examples. This research almost always involves some level of stimulus preparation to rotate, resize, crop, and reposition faces on the image. In addition, many studies systematically manipulate face images by changing color and/or shape properties <span class="citation">(e.g., Perrett et al., 1994, 1998; Stephen et al., 2012; reviewed in Little et al., 2011)</span>.</p>
@@ -335,7 +326,7 @@ div.tocify {
 <p>Reproducibility is especially important for face stimuli because faces are sampled, so replications should sample new <em>faces</em> as well as new participants <span class="citation">(Barr, 2007)</span>. The difficulty of creating equivalent face stimuli is a major barrier to this, resulting in stimulus sets that are used across dozens or hundreds of papers. For example, the Chicago Face Database <span class="citation">(Ma et al., 2015)</span> has been cited in almost 800 papers. Ekman and Friesen’s <span class="citation">(1976)</span> Pictures of Facial Affect has been cited more than 5500 times. This image set is currently <a href="https://www.paulekman.com/product/pictures-of-facial-affect-pofa/"><strong>selling</strong> for $399</a> for “110 photographs of facial expressions that have been widely used in cross-cultural studies, and more recently, in neuropsychological research”. Such extensive reuse of image sets means that any confounds present in a particular image set can result in findings that are highly “replicable” but potentially just an artifact of the set-specific confounds.</p>
 <p>Additionally, image sets are often private and reused without clear attribution. Our group has only recently been trying to combat this by making image sets public and citable where possible <span class="citation">(DeBruine, 2016; DeBruine &amp; Jones, 2017a; e.g., DeBruine &amp; Jones, 2017b, 2020; B. C. Jones et al., 2018; Morrison et al., 2018)</span> and including clear explanations of reuse where not possible <span class="citation">(e.g., Holzleitner et al., 2019)</span>.</p>
 <!--
-holzleitner2019comparing: All participants were students at the University of Glasgow, participating as part of a larger project on hormones and mating psychology (B. C. Jones, Hahn, Fisher, Wang, Kandrik, & DeBruine, 2018; B. C. Jones, Hahn, Fisher, Wang, Kandrik, Han, et al., 2018; B. C. Jones, Hahn, Fisher, Wang, Kandrik, Lee, et al., 2018). 
+holzleitner2019comparing: All participants were students at the University of Glasgow, participating as part of a larger project on hormones and mating psychology (B. C. Jones, Hahn, Fisher, Wang, Kandrik, & DeBruine, 2018; B. C. Jones, Hahn, Fisher, Wang, Kandrik, Han, et al., 2018; B. C. Jones, Hahn, Fisher, Wang, Kandrik, Lee, et al., 2018).
 -->
 </div>
 <div id="common-techniques" class="section level2">
@@ -1218,16 +1209,16 @@ Figure 15: The 102 neutral front faces in the London Face Set.
 <h2>Protoypes</h2>
 <p>The first step for many types of stimuli is to create prototype faces for some categories, such as expression or gender. The faces that make up these averages should be matched for other characteristics that you want to avoid confounding with the categories of interest, such as age or ethnicity. Here, we will choose 5 Black female faces, automatically delineate them, align the images, and create neutral and smiling prototypes (Fig. <a href="#fig:emo-avg">16</a>).</p>
 <pre class="r"><code># select the relevant images and auto-delineate them
-neu_orig &lt;- subset(london, face_gender == &quot;female&quot;) |&gt; 
+neu_orig &lt;- subset(london, face_gender == &quot;female&quot;) |&gt;
   subset(face_eth == &quot;black&quot;) |&gt; subset(1:5) |&gt;
   auto_delin(&quot;dlib70&quot;, replace = TRUE)
 
-smi_orig &lt;- subset(smiling, face_gender == &quot;female&quot;) |&gt; 
+smi_orig &lt;- subset(smiling, face_gender == &quot;female&quot;) |&gt;
   subset(face_eth == &quot;black&quot;) |&gt; subset(1:5) |&gt;
   auto_delin(&quot;dlib70&quot;, replace = TRUE)
 
 # align the images
-all &lt;- c(neu_orig, smi_orig) 
+all &lt;- c(neu_orig, smi_orig)
 aligned &lt;- all |&gt;
   align(procrustes = TRUE, fill = patch(all)) |&gt;
   crop(.6, .8, y_off = 0.05)
@@ -1261,14 +1252,14 @@ Figure 17: Continuum from -50% to +150% smiling.
 <h2>Sexual dimorphism transform</h2>
 <p>We can use the full templates to create sexual dimorphism transforms from neutral faces. Repeat the process above for 5 male and 5 female neutral faces, skipping the auto-delineation because these images already have webmorph templates (Fig. <a href="#fig:sexdim-avg">18</a>).</p>
 <pre class="r"><code># select the relevant images
-f_orig &lt;- subset(london, face_gender == &quot;female&quot;) |&gt; 
+f_orig &lt;- subset(london, face_gender == &quot;female&quot;) |&gt;
   subset(face_eth == &quot;black&quot;) |&gt; subset(1:5)
 
-m_orig &lt;- subset(london, face_gender == &quot;male&quot;) |&gt; 
+m_orig &lt;- subset(london, face_gender == &quot;male&quot;) |&gt;
   subset(face_eth == &quot;black&quot;) |&gt; subset(1:5)
 
 # align the images
-all &lt;- c(f_orig, m_orig) 
+all &lt;- c(f_orig, m_orig)
 aligned &lt;- all |&gt;
   align(procrustes = TRUE, fill = patch(all)) |&gt;
   crop(.6, .8, y_off = 0.05)
@@ -1308,7 +1299,7 @@ Figure 19: Versions of individual faces with (A) 50% feminised shape and (B) 50%
   shape = 0.5,         # by 50% of the shape differences
   from_img = m_avg,    # between an average male face
   to_img = m) |&gt;       # and individual male faces
-  mask(c(&quot;face&quot;, &quot;neck&quot;,&quot;ears&quot;)) 
+  mask(c(&quot;face&quot;, &quot;neck&quot;,&quot;ears&quot;))
 
 virtual_bro &lt;- trans(
   trans_img = m_avg,   # transform an average male face
@@ -1330,15 +1321,15 @@ Figure 20: Creating virtual siblings: (A) original images, (B) virtual brothers,
 
 ingroup &lt;- f |&gt;
   # pad 10% at the top with matching color
-  pad(0.1, 0, 0, 0, fill = patch(f)) |&gt; 
+  pad(0.1, 0, 0, 0, fill = patch(f)) |&gt;
   label(&quot;Scottish&quot;, &quot;north&quot;, &quot;+0+10&quot;) |&gt;
-  image_func(&quot;composite&quot;, flags$saltire$img, 
+  image_func(&quot;composite&quot;, flags$saltire$img,
               gravity = &quot;northeast&quot;, offset = &quot;+10+10&quot;)
 
 outgroup &lt;- f |&gt;
-  pad(0.1, 0, 0, 0, fill = patch(f)) |&gt; 
+  pad(0.1, 0, 0, 0, fill = patch(f)) |&gt;
   label(&quot;Welsh&quot;, &quot;north&quot;, &quot;+0+10&quot;) |&gt;
-  image_func(&quot;composite&quot;, flags$ddraig$img, 
+  image_func(&quot;composite&quot;, flags$ddraig$img,
              gravity = &quot;northeast&quot;, offset = &quot;+10+10&quot;)</code></pre>
 <div class="figure"><span style="display:block;" id="fig:label-comp"></span>
 <img src="index_files/figure-html/label-comp-1.png" alt="Stimuli with text labels and superimposed images." width="100%" />
@@ -1399,16 +1390,16 @@ odd &lt;- rnorm(stim_n, height_m, height_sd)
 even &lt;- rnorm(stim_n, height_m, height_sd)
 
 t.test(odd, even)</code></pre>
-<pre><code>## 
+<pre><code>##
 ##  Welch Two Sample t-test
-## 
+##
 ## data:  odd and even
 ## t = 1.7942, df = 17.409, p-value = 0.09016
 ## alternative hypothesis: true difference in means is not equal to 0
 ## 95 percent confidence interval:
 ##  -0.7673069  9.5977215
 ## sample estimates:
-## mean of x mean of y 
+## mean of x mean of y
 ##  161.1587  156.7435</code></pre>
 <p>A t-test shows no significant difference, which is unsurprising. We simulated the data from the same distribution, so we know for sure there is no real difference here. Now we’re going to average the height of the women with odd and even birthdays. So if we create a full-body composite of women born on odd days, she would be 161.2 cm tall, and a composite of women born on even days would be 156.7 cm tall.</p>
 <p>If we ask 100 observers to look at these two composites, side-by-side, and judge which one looks taller, what do you imagine would happen? It’s likely that nearly all of them would judge the odd-birthday composite as taller. But let’s say that observers have to judge the composites independently, and they are pretty bad with height estimation, so their estimates for each composite have error with a standard deviation of 10 cm. We then compare their estimates for the odd-birthday composite with the estimate for the even-birthday composite in a paired-samples t-test.</p>
@@ -1420,16 +1411,16 @@ odd_estimates &lt;- mean(odd) + rnorm(obs_n, 0, error_sd)
 even_estimates &lt;- mean(even) + rnorm(obs_n, 0, error_sd)
 
 t.test(odd_estimates, even_estimates, paired = TRUE)</code></pre>
-<pre><code>## 
+<pre><code>##
 ##  Paired t-test
-## 
+##
 ## data:  odd_estimates and even_estimates
 ## t = 3.3962, df = 99, p-value = 0.0009848
 ## alternative hypothesis: true mean difference is not equal to 0
 ## 95 percent confidence interval:
 ##  1.902821 7.250747
 ## sample estimates:
-## mean difference 
+## mean difference
 ##        4.576784</code></pre>
 <p>Now the women with odd birthdays are significantly taller than the women with even birthdays (p = 0.001). Or are they?</p>
 <p>People tend to show high agreement on stereotypical social perceptions from the physical appearance of faces, even when physical appearance is not meaningfully associated with the traits being judged <span class="citation">(B. C. Jones et al., 2021; Todorov et al., 2008b; Zebrowitz &amp; Montepare, 2008)</span>. We can be sure that by chance alone, our two composites will be at least slightly different on any measure, even if they are drawn from identical populations. The smaller the number of stimuli that go into each composite, the larger the mean (unsigned) size of this difference. With only 10 stimuli per composite (like the Facesaurus composites), the mean unsigned effect size of the difference between composites from populations with no real difference is 0.35 (in units of SD of the original trait distribution). If our observers are accurate enough at perceiving this difference, or we run a very large number of observers, we are virtually guaranteed to find significant results every time. Additionally, there is a 50% chance that these results will be in the predicted direction, and this direction will be replicable across different samples of observers for the same image set.</p>
@@ -1450,11 +1441,11 @@ pairs &lt;- lapply(1:n_pairs, function (i) {
   # sample a random 10:10 split
   rand1 &lt;- sample(names(f), 10)
   rand2 &lt;- setdiff(names(f), rand1)
-  
+
   # create composite images
   comp1 &lt;- avg(f[rand1])
   comp2 &lt;- avg(f[rand2])
-  
+
   # save images with paired names
   nm1 &lt;- paste0(&quot;img_&quot;, i, &quot;_a&quot;)
   nm2 &lt;- paste0(&quot;img_&quot;, i, &quot;_b&quot;)

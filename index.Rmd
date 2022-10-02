@@ -44,7 +44,7 @@ affiliation:
 authornote: |
   This research was funded by ERC grant #647910 (KINSHIP).
 abstract: |
-  Face stimuli are commonly created in ways that are not explained well enough for others to reproduce them. In this paper, we document the irreproducibility of most face stimuli, explain the benefits of reproducible stimuli, and introduce the open-source R package webmorphR that facilitates scriptable fae image processing. We explain the technical processes of morphing and transforming through a case study of creating face stimuli from an open-access image set. Finally, we discuss some ethical and methodological issues around the use of face images in research that may be ameliorated through the use of reproducible stimuli. 
+  Face stimuli are commonly created in ways that are not explained well enough for others to reproduce them. In this paper, we document the irreproducibility of most face stimuli, explain the benefits of reproducible stimuli, and introduce the open-source R package webmorphR that facilitates scriptable face image processing. We explain the technical processes of morphing and transforming through a case study of creating face stimuli from an open-access image set. Finally, we discuss some ethical and methodological issues around the use of face images in research that may be ameliorated through the use of reproducible stimuli. 
   
 keywords          : "faces; morphing; transforming; reproducibility; webmorph"
 wordcount         : "7172"
@@ -58,20 +58,21 @@ linenumbers       : yes
 mask              : no
 draft             : no
 documentclass     : "apa6"
-classoption       : "doc"
+classoption       : "man"
 output            : 
-  papaja::apa6_pdf:
-    default
-  bookdown::word_document2:
-    default
   bookdown::html_document2:
     toc: true
     toc_float: 
       collapsed: false
     toc_depth: 2
-    number_sections: false
+    number_sections: true
     self_contained: false
     code_folding: show
+  bookdown::word_document2:
+    default
+  papaja::apa6_pdf:
+    numbersections: true
+    toc: true
 always_allow_html: true
 note              : "Draft"
 ---
@@ -116,7 +117,8 @@ wm_opts(plot.maxwidth = 850)
   address { display: none; }
 </style>
 
-Face stimuli are commonly created in ways that are not explained well enough for others to reproduce them. In this paper, we document the irreproducibility of most face stimuli, explain the benefits of reproducible stimuli, and introduce the open-source R package webmorphR that facilitates scriptable fae image processing. We explain the technical processes of morphing and transforming through a case study of creating face stimuli from an open-access image set. Finally, we discuss some ethical and methodological issues around the use of face images in research that may be ameliorated through the use of reproducible stimuli. 
+
+Face stimuli are commonly created in ways that are not explained well enough for others to reproduce them. In this paper, we document the irreproducibility of most face stimuli, explain the benefits of reproducible stimuli, and introduce the open-source R package webmorphR that facilitates scriptable face image processing. We explain the technical processes of morphing and transforming through a case study of creating face stimuli from an open-access image set. Finally, we discuss some ethical and methodological issues around the use of face images in research that may be ameliorated through the use of reproducible stimuli. 
 
 
 # Introduction

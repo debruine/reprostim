@@ -47,7 +47,7 @@ abstract: |
   Face stimuli are commonly created in ways that are not explained well enough for others to reproduce them. In this paper, we document the irreproducibility of most face stimuli, explain the benefits of reproducible stimuli, and introduce the open-source R package webmorphR that facilitates scriptable face image processing. We explain the technical processes of morphing and transforming through a case study of creating face stimuli from an open-access image set. Finally, we discuss some ethical and methodological issues around the use of face images in research that may be ameliorated through the use of reproducible stimuli. 
   
 keywords          : "faces; morphing; transforming; reproducibility; webmorph"
-wordcount         : "7172"
+wordcount         : "11,337"
 bibliography      : ["r-references.bib","biblio.bib"]
 csl               : apa.csl
 floatsintext      : yes
@@ -60,19 +60,18 @@ draft             : no
 documentclass     : "apa6"
 classoption       : "man"
 output            : 
-  bookdown::word_document2:
-    default
+  papaja::apa6_pdf:
+    toc: true
   bookdown::html_document2:
     toc: true
     toc_float: 
       collapsed: false
     toc_depth: 2
-    number_sections: true
+    number_sections: false
     self_contained: false
     code_folding: show
-  papaja::apa6_pdf:
-    numbersections: true
-    toc: true
+  bookdown::word_document2:
+    default
 always_allow_html: true
 note              : "Draft"
 ---
@@ -117,9 +116,7 @@ wm_opts(plot.maxwidth = 850)
   address { display: none; }
 </style>
 
-
-Face stimuli are commonly created in ways that are not explained well enough for others to reproduce them. In this paper, we document the irreproducibility of most face stimuli, explain the benefits of reproducible stimuli, and introduce the open-source R package webmorphR that facilitates scriptable face image processing. We explain the technical processes of morphing and transforming through a case study of creating face stimuli from an open-access image set. Finally, we discuss some ethical and methodological issues around the use of face images in research that may be ameliorated through the use of reproducible stimuli. 
-
+\newpage
 
 # Introduction
 
@@ -906,9 +903,9 @@ c(left_viz, right_viz) |> crop_tem()
 
 Recently Deep Learning methods have had a huge impact on machine learning and there has been a considerable amount of face related work undertaken. In particular, generative adversarial networks (GANs) are capable of generating random photo-realistic faces from an input vector sampled from a known distribution [@gauthier2014conditional;@goodfellow2014generative]. Face-generating GANs are usually in the form of a convolutional neural network that takes the input vector in the form of a small pixel image with many channels, and through repeated convolutions and upsampling, or transpose convolutions, combined with pooling methods and non-linear activation functions, can generate a 3-channel RGB image. The generating networks are trained with the help of a second CNN, a discriminator network, that using convolutions, pooling /downsampling and non-linear activations to detect real vs fake images. Training is alternated between the generator network and the discriminator network, where the discriminator is trained to detect the fake images, then the generator is trained to fool the discriminator, and so on. GANs learn a face space, which can be further explored to enable alteration of attributes such as age, gender, or glasses in the generated images [e.g., @shen2020interfacegan].  
 
-Cycle-GANs extend the use of GANs for what is known as image translation (what we refer to as transforms in this paper) such as altering age, sex, race [@zhu2017unpaired]. Cycle-GANs use an encoding-decoding network to transform an input image belonging to one class (e.g. male) into the corresponding image in the target class (e.g. female). Similar to GANs, cycle-GANs are trained with the use of discriminator networks, which are trained to detect fake outputs from the networks. In addition, cycle-GANs need to produce not just realistic images for the target class, but they need to be (in some sense) otherwise unchanged from the input image.  To help ensure this is the case, the inverse transform is also learnt (e.g. from female to male), along with it’s own discriminator, and the training tries to ensure that the result of the transformation followed by the inverse transformation results in an image as close as possible to the original input.
+Cycle-GANs extend the use of GANs for what is known as image translation (what we refer to as transforms in this paper) such as altering age, sex, race [@zhu2017unpaired]. Cycle-GANs use an encoding-decoding network to transform an input image belonging to one class (e.g. male) into the corresponding image in the target class (e.g. female). Similar to GANs, cycle-GANs are trained with the use of discriminator networks, which are trained to detect fake outputs from the networks. In addition, cycle-GANs need to produce not just realistic images for the target class, but they need to be (in some sense) otherwise unchanged from the input image.  To help ensure this is the case, the inverse transform is also learnt (e.g. from female to male), along with its own discriminator, and the training tries to ensure that the result of the transformation followed by the inverse transformation results in an image as close as possible to the original input.
 
-These synthetic faces are perceived as real human face images under many circumstances [@shen2021study]. The use of GANs and cycle-GANs has started to make its way into face perception research [e.g. @dado2022hyperrealistic;@zaltron2020cg], and its use will undoubtedly increase, but these methods need to be used with caution. Firstly, the trained networks are essentially "black boxes" controlled by millions of learnt parameters that are extremely difficult to interpret.  A consequence and example of this is the vulnerability to adversarial attacks. For example, it is possible to find valid-looking input images that will fail catastrophically on the output images [@kos2018adversarial]. Secondly, the quantity of training data needed is prohibitive for some experiments, as is the computing power needed to learn the models, requiring the repeated training of 2 networks for GAN or 4 networks for cycle-GAN.  The need for very large datasets means that that image datasets are typically scraped off the web, which can result in biases, and ethical issues around consent. Thirdly, training GANs and cycle-GANs is notoriously challenging, and without care they can suffer from mode collapse, non-convergence and instability [@saxena2021generative].
+These synthetic faces are perceived as real human face images under many circumstances [@shen2021study]. The use of GANs and cycle-GANs has started to make its way into face perception research [e.g. @dado2022hyperrealistic;@zaltron2020cg], and its use will undoubtedly increase, but these methods need to be used with caution. Firstly, the trained networks are essentially "black boxes" controlled by millions of learnt parameters that are extremely difficult to interpret.  A consequence and example of this is the vulnerability to adversarial attacks. For example, it is possible to find valid-looking input images that will fail catastrophically on the output images [@kos2018adversarial]. Secondly, the quantity of training data needed is prohibitive for some experiments, as is the computing power needed to learn the models, requiring the repeated training of 2 networks for GAN or 4 networks for cycle-GAN.  The need for very large datasets means that image datasets are typically scraped off the web, which can result in biases, and ethical issues around consent. Thirdly, training GANs and cycle-GANs is notoriously challenging, and without care they can suffer from mode collapse, non-convergence and instability [@saxena2021generative].
 
 
 ## Judging composites
